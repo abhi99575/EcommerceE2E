@@ -18,7 +18,6 @@ describe("Ecommerce",async()=>{
        await paymentpage.checkout.click()
        await DeliveryAddress.selectCountry()
        await Purchase.PurchaseButton()
-       await browser.pause(3000)
         })
       })
     })

@@ -79,6 +79,7 @@ export const config = {
     // If you only want to run your tests until a specific amount of tests have failed use
     // bail (default is 0 - don't bail, run all tests).
     bail: 0,
+
     //
     // Set a base URL in order to shorten url command calls. If your `url` parameter starts
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
@@ -131,6 +132,12 @@ export const config = {
         ui: 'bdd',
         timeout: 60000
     },
+
+    
+    reporters: [['allure', {
+        outputDir: 'allure-results',
+        disableWebdriverScreenshotsReporting: false,
+    }]],
 
     //
     // =====
@@ -226,8 +233,11 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        if (error) {
+            await browser.takeScreenshot();
+        }
+     },
 
 
     /**
